@@ -1,12 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-const port = 3000;
+const port = 5000;
 
 // database connection
 async function bootstrap() {
-  mongoose.connect("mongodb://127.0.0.1:27017/test");
-  console.log(`📦 Database connection successful`);
+  try {
+    await mongoose.connect("mongodb://127.0.0.1:27017/mongoose-practice");
+    console.log(`📦 Database connection successful`);
+  } catch (err) {
+    console.error(`❌ Failed to connect database`, err);
+  }
 }
 bootstrap();
 
@@ -15,5 +19,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`Server is listening on port ${port}`);
 });
