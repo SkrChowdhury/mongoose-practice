@@ -1,6 +1,6 @@
+import { Schema, model } from "mongoose";
 import express, { Application, NextFunction, Request, Response } from "express";
 
-import { Schema } from "mongoose";
 import cors from "cors";
 
 const app: Application = express();
@@ -19,7 +19,7 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
   * Step 1: Interface
   * Step 2: Schema
   * Step 3 : Model
-  * Step 4 : Database Query
+  * Step 4 : Database Query On Model
 
   */
 
@@ -69,6 +69,31 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
     permanentAddress: { type: String, required: true },
   });
 
+  const User = model<IUser>("User", userSchema);
+
+  const createUserToDB = async () => {
+    const user = new User({
+      id: "4345443",
+      role: "student",
+      password: "nsujss7",
+      name: {
+        firstName: "Sakkhor",
+        middleName: "",
+        lastName: "Chowdhury",
+      },
+      dateOfBirth: "",
+      gender: "male",
+      email: "",
+      contactNo: "0980808",
+      emergencyContactNo: "9797979",
+      presentAddress: "Dhaka",
+      permanentAddress: "CTG",
+    });
+    await user.save();
+    console.log(user);
+  };
+
+  createUserToDB();
   //   res.send("Hello World!");
   //   next();
 });
