@@ -1,7 +1,7 @@
-import { Schema, model } from "mongoose";
-import express, { Application, NextFunction, Request, Response } from "express";
+import { Schema, model } from 'mongoose';
+import express, { Application, NextFunction, Request, Response } from 'express';
 
-import cors from "cors";
+import cors from 'cors';
 
 const app: Application = express();
 
@@ -12,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req: Request, res: Response, next: NextFunction) => {
+app.get('/', (req: Request, res: Response, next: NextFunction) => {
   // inserting a test data into mongodb
   /*
 
@@ -23,71 +23,23 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
 
   */
 
-  // creating an interface
-  interface IUser {
-    id: string;
-    role: "student";
-    password: string;
-    name: {
-      firstName: string;
-      middleName?: string;
-      lastName: string;
-    };
-    dateOfBirth?: string;
-    gender: "male" | "female";
-    email?: string;
-    contactNo: string;
-    emergencyContactNo: string;
-    presentAddress: string;
-    permanentAddress: string;
-  }
-
-  // creating Schema using interface
-  const userSchema = new Schema<IUser>({
-    id: { type: String, required: true, unique: true },
-    role: { type: String, required: true },
-    password: { type: String, required: true },
-    name: {
-      firstName: {
-        type: String,
-        required: true,
-      },
-      middleName: {
-        type: String,
-      },
-      lastName: {
-        type: String,
-        required: true,
-      },
-    },
-    dateOfBirth: { type: String },
-    gender: { type: String, enum: ["male", "female"] },
-    email: { type: String },
-    contactNo: { type: String, required: true },
-    emergencyContactNo: { type: String, required: true },
-    presentAddress: { type: String, required: true },
-    permanentAddress: { type: String, required: true },
-  });
-
-  const User = model<IUser>("User", userSchema);
-
   const createUserToDB = async () => {
     const user = new User({
-      id: "4345443",
-      role: "student",
-      password: "nsujss7",
+      id: '43443',
+      role: 'student',
+      password: 'nsujss7',
       name: {
-        firstName: "Sakkhor",
-        middleName: "",
-        lastName: "Chowdhury",
+        firstName: 'Sakkhor',
+        middleName: '',
+        lastName: 'Chowdhury',
       },
-      dateOfBirth: "",
-      gender: "male",
-      email: "",
-      contactNo: "0980808",
-      emergencyContactNo: "9797979",
-      presentAddress: "Dhaka",
-      permanentAddress: "CTG",
+      dateOfBirth: '',
+      gender: 'male',
+      email: '',
+      contactNo: '0980808',
+      emergencyContactNo: '9797979',
+      presentAddress: 'Dhaka',
+      permanentAddress: 'CTG',
     });
     await user.save();
     console.log(user);
@@ -99,3 +51,18 @@ app.get("/", (req: Request, res: Response, next: NextFunction) => {
 });
 
 export default app;
+
+/*
+
+! Pattern MVC, Modular
+
+* * Interface interface.ts
+* * Schema, Model -> model.ts
+
+* * Route
+
+* * Route Function -> controller.ts
+
+* * Database Query Function -> service.ts
+
+*/
