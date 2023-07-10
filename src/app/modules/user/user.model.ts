@@ -1,6 +1,6 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model } from "mongoose";
 
-import { IUser } from './user.interface';
+import { IUser } from "./user.interface";
 
 // creating Schema using interface
 const userSchema = new Schema<IUser>({
@@ -21,7 +21,7 @@ const userSchema = new Schema<IUser>({
     },
   },
   dateOfBirth: { type: String },
-  gender: { type: String, enum: ['male', 'female'] },
+  gender: { type: String, enum: ["male", "female"] },
   email: { type: String },
   contactNo: { type: String, required: true },
   emergencyContactNo: { type: String, required: true },
@@ -29,4 +29,6 @@ const userSchema = new Schema<IUser>({
   permanentAddress: { type: String, required: true },
 });
 
-const User = model<IUser>('User', userSchema);
+const User = model<IUser>("User", userSchema);
+
+export default User;
